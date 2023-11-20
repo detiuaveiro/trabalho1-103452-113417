@@ -223,7 +223,7 @@ void ImageDestroy(Image* imgp) { ///
   imgp->height = 0;
   imgp->maxval = 0;*/
 
-  //libertar a memoria para a data do pixel
+  //liberta a memoria para a data do pixel
   free((*imgp)->pixel);
   //Liberta a memoria para a estrutura da imagem
   free(*imgp);
