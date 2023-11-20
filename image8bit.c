@@ -172,22 +172,32 @@ Image ImageCreate(int width, int height, uint8 maxval) { ///
   assert (0 < maxval && maxval <= PixMax);
   // Insert your code here!
 
-  Image imagem;
-  imagem->width = width;
-  imagem->height = height;
-  imagem->maxval = maxval; //maior valor de cinza
-
+  //Aloca a memoria para a imagem
   Image imagem = (Image)malloc(sizeof(Image));
 
-  //Aloca a memoria para os dados da imagem (uint8)
-  imagem->pixel = (uint8*)malloc(width * height * sizeof(uint8));
-
-  if (imagem->pixel == NULL)
+  //Vê se a alocação de memoria foi bem sucedida
+  if (imagem == NULL)
   {
     printf("Erro ao alocar memória para a imagem.\n");
     exit(1);
   }
 
+  //Define as propriedades da imagem
+  imagem->width = width;
+  imagem->height = height;
+  imagem->maxval = maxval; //maior valor de cinza
+
+  //Aloca a memoria para os dados da imagem (uint8)
+  imagem->pixel = (uint8*)malloc(width * height * sizeof(uint8));
+
+  //Verifica de a alocação da memoria para os pixeis foi bem feita
+  if (imagem->pixel == NULL)
+  {
+    printf("Erro ao alocar a memoria para a imagem\n");
+    free(imagem); //liberta memoria previamente alocada
+    exit(1);
+  }
+  
   //Preenche a imagem com pixeis pretos(0)
   for (size_t i = 0; i < width * height; i++)
   {
